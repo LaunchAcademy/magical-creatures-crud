@@ -1,0 +1,14 @@
+
+<h1>Welcome to the Wizard Page of Wizards....wuzards</h1>
+
+
+<p>This is where the wizards are. YOu are in the right place I guess...</p>
+
+<ol>
+<% @wizards.each do |wizard_hash| %>
+
+  <li>
+    <a href="/wizards/<%= wizard_hash["id"] %>"> <%= wizard_hash["name"] %></a>
+  </li>
+<% end %>
+</ol>

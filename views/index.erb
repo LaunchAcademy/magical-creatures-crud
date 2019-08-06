@@ -1,0 +1,10 @@
+<h1>List of Tasks</h1>
+
+<% @tasks.each do |task| %>
+  <li>
+    <a href="/tasks/<%= task %>"> 
+      <%= task %>
+     </a>
+
+  </li>
+<% end %>
