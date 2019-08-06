@@ -1,6 +1,8 @@
-name,age,power_type
-Gandalf,32045,Maiar
-Usidor,275,Cranky
-Zatanna,21,Illusion
-Harry Potter,18,YOUTHS
-Hermione,18,ACTUALLY DOES ALL OF THE WORK IN THE BOOKS I HATE HARRY
+id,name,age,power_type
+1,Gandalf,32045,Maiar
+2,Usidor,275,Cranky
+3,Zatanna,21,Illusion
+4,Harry Potter,18,YOUTHS
+5,Hermione,18,ACTUALLY DOES ALL OF THE WORK IN THE BOOKS I HATE HARRY
+6,Foobar,20,Code
+7,"","",""

@@ -1,8 +1,12 @@
 <h1>Add Your Wizard Below!</h1>
 
+<% if @error %>
+  <h5> <%= @error %> </h5>
+<% end %>
+
 <form action="/wizards" method="post">
   <label for="wizard_name">Wizard Name:</label>
-  <input type="text" name="wizard_name" id="wizard_name">
+  <input type="text" name="wizard_name" id="wizard_name" value="JACKIE THE KALIMBA LORDESS">
   <br>
   <label for="wizard_age">Wizard Age:</label>
   <input type="text" name="wizard_age" id="wizard_age">

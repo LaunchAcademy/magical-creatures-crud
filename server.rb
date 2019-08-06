@@ -6,6 +6,10 @@ require "csv"
 
 set :bind, '0.0.0.0'  # bind to all interfaces
 
+def retrieve_id_for_last_csv_resource(file_path)
+  wizards = CSV.readlines("wizards.csv", headers: true)[-1]["id"].to_i
+end
+
 get '/' do
   redirect "/wizards"
 end
@@ -15,41 +19,43 @@ get "/wizards/new" do
 end
 
 post "/wizards" do
-  wizard_name = params["wizard_name"]
-  wizard_age = params["wizard_age"]
-  wizard_power_type = params["wizard_power_type"]
+  last_id = retrieve_id_for_last_csv_resource("articles.csv") + 1
+  @wizard_name = params["wizard_name"]
+  @wizard_age = params["wizard_age"]
+  @wizard_power_type = params["wizard_power_type"]
 
-  CSV.open("wizards.csv", "a") do |csv|
-    csv << [wizard_name, wizard_age, wizard_power_type]
+  if wizard_name != ""
+    CSV.open("wizards.csv", "a") do |csv|
+      csv << [last_id.to_s, wizard_name, wizard_age, wizard_power_type]
+    end
+
+    redirect "/wizards"
+  else
+    @error = "Please provide a wizard name"
+
+    erb :"wizards/new"
   end
-
-  redirect "wizards"
-  # what if something goes wrong? What do we do?
 end
 
 get "/wizards" do
   # @wizards = CSV.readlines("wizards.csv")
-  @wizards = []
-  CSV.foreach("wizards.csv", headers: true) do |row|
-    @wizards << row.to_h
-  end
+
+  # @wizards = []
+  # CSV.foreach("wizards.csv", headers: true) do |row|
+  #   @wizards << row.to_h
+  # end
+
+  @wizards = Wizard.all
 
   erb :wizards
 end
 
 get "/wizards/:id" do
-  # retrieve_id_for_last_element("articles.csv")
-  #
-  #
-  # CSV.foreach("wizards.csv", headers: true) do |wizard_row|
-  #   if wizard_row[:id] == params["id"].to_i
-  #     @wizard = wizard_hash
-  #   end
-  # end
+  CSV.foreach("wizards.csv", headers: true) do |wizard_row|
+    if wizard_row["id"].to_i == params["id"].to_i
+      @wizard = wizard_row.to_h
+    end
+  end
 
   erb :show
 end
-
-# def retrieve_id_for_last_csv_resource(file_path)
-#   CSV.readlines("articles.csv", headers: true).last["id"]
-# end
